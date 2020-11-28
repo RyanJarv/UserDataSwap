@@ -35,9 +35,11 @@ Resources:
         - Sid: ModifyInstanceAttribute
           Effect: Allow
           Action:
-            - ec2:ModifyInstanceAttribute
-          # The ec2:ModifyInstanceAttribute only allows '*' as the resource. There are no other condition key's specific
-          # to this action, however you should be able to limit access with global conditions.
+            - "ec2:DescribeInstances"
+            - "ec2:StartInstances"
+            - "ec2:DescribeInstanceAttribute"
+            - "ec2:ModifyInstanceAttribute"
+            - "ec2:StopInstances"
           Resource: '*'
 
 Outputs:

