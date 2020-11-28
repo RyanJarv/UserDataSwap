@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  user_data_swap
+  
+  Example of a malicious lambda function that swaps user data on a run-instance event. After the malicious script run's
+  the instance cloud-init data is cleared and the instance is restarted so it can re-init with the original user data.
+
+Globals:
+  Function:
+    Timeout: 900
+
+Resources:
+  UserDataSwapFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: UserDataSwap/
+      Handler: UserDataSwap
+      Runtime: go1.x
+      Tracing: Active # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
+      Events:
+        EC2RunTrigger:
+          Type: EventBridgeRule
+          Properties:
+            Pattern:
+              source:
+              - "aws.ec2"
+              detail:
+                eventSource:
+                - "ec2.amazonaws.com"
+                eventName:
+                - "RunInstances"
+      Policies:
+      - Statement:
+        - Sid: ModifyInstanceAttribute
+          Effect: Allow
+          Action:
+            - ec2:ModifyInstanceAttribute
+          # The ec2:ModifyInstanceAttribute only allows '*' as the resource. There are no other condition key's specific
+          # to this action, however you should be able to limit access with global conditions.
+          Resource: '*'
+
+Outputs:
+  UserDataSwapFunction:
+    Description: "First Lambda Function ARN"
+    Value: !GetAtt UserDataSwapFunction.Arn
+  UserDataSwapFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt UserDataSwapFunctionRole.Arn
