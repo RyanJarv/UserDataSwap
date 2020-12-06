@@ -6,12 +6,19 @@ User data swap is an example of an automated lambda function that runs that swap
 
 This exists as an example of how an attacker could semi-covertly backdoor EC2 instances on creation. The API calls will stand out, but from the user's perspective the instance is simply taking longer to start up. This is a well known attack, only change to what I've seen elsewhere is adding Event Bridge and Lambda.
 
+## More Info
+
 For more info you can see my post on [Backdooring user data](https://blog.ryanjarv.sh/2020/11/27/backdooring-user-data.html)
 
-For another similar attack with different pros/cons take a look at [EC2FakeIMDS](https://github.com/RyanJarv/EC2FakeImds). The talk and slides going over these two can be found on [my blog](https://blog.ryanjarv.sh/2020/12/04/deja-vu-in-the-cloud.html).
+## Related Attacks
 
-I think the take away here, and what I was hoping to demonstrate is what I described as Cloud Malware in my talk doesn't need to be complex.
+For another similar attack with different pros/cons take a look at [EC2FakeIMDS](https://github.com/RyanJarv/EC2FakeImds).
 
+The talk and slides going over these two can be found on [my blog](https://blog.ryanjarv.sh/2020/12/04/deja-vu-in-the-cloud.html).
+
+## Takeaway
+
+What I was hoping to demonstrate is what I described as Cloud Malware in my talk doesn't need to be complex.
 
 ## Requirements
 
