@@ -4,11 +4,12 @@ WARNING: do not deploy this to any account you (or anyone else) actively uses
 
 User data swap is an example of an automated lambda function that runs that swaps out user data on RunInstance events. The original user data script is restored after ours is run.
 
-This exists as an example of how an attacker could semi-covertly backdoor EC2 instances on creation.
+This exists as an example of how an attacker could semi-covertly backdoor EC2 instances on creation. The API calls will stand out, but from the user's perspective the instance is simply taking longer to start up. This is a well known attack, only change to what I've seen elsewhere is adding Event Bridge and Lambda.
 
 For more info you can see my post on [Backdooring user data](https://blog.ryanjarv.sh/2020/11/27/backdooring-user-data.html)
 
-For another similar attack with different pros/cons take a look at [EC2FakeIMDS](https://github.com/RyanJarv/EC2FakeImds). Talk and slides going over these two can be found on [my blog](https://blog.ryanjarv.sh/2020/12/04/deja-vu-in-the-cloud.html).
+For another similar attack with different pros/cons take a look at [EC2FakeIMDS](https://github.com/RyanJarv/EC2FakeImds). My talk and slides going over these two can be found on [my blog](https://blog.ryanjarv.sh/2020/12/04/deja-vu-in-the-cloud.html).
+
 
 ## Requirements
 
