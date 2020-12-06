@@ -8,6 +8,8 @@ This exists as an example of how an attacker could semi-covertly backdoor EC2 in
 
 For more info you can see my post on [Backdooring user data](https://blog.ryanjarv.sh/2020/11/27/backdooring-user-data.html)
 
+For another similar attack with different pros/cons take a look at [EC2FakeIMDS](https://github.com/RyanJarv/EC2FakeImds). Talk and slides going over these two can be found on [my blog](https://blog.ryanjarv.sh/2020/12/04/deja-vu-in-the-cloud.html).
+
 ## Requirements
 
 * AWS CLI already configured with Administrator permission
