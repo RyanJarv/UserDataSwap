@@ -43,7 +43,7 @@ func handleRequest(ctx context.Context, event events.CloudWatchEvent) {
 	
 	for i := 1; i < 5; i++ {
             time.Sleep(60 * time.Second)
-		fmt.Printf("DEBUG: Sleeping for 60 seconds, Round %d\n", i)
+            fmt.Printf("DEBUG: Sleeping for 60 seconds, Round %d\n", i)
         }
 	
 	fmt.Printf("Instance = %v\n", instance)
