@@ -6,6 +6,8 @@ User data swap is an example of an automated lambda function that runs that swap
 
 This exists as an example of how an attacker could semi-covertly backdoor EC2 instances on creation. The API calls will stand out, but from the user's perspective the instance is simply taking longer to start up. This is a well known attack, only change to what I've seen elsewhere is adding Event Bridge and Lambda.
 
+Currently there is a five minute delay between when the new instance comes up and when it is backdoored, this is to work around issues with bootstrapping at the moment. Hope to find another way to do this in the future, but we'll see.
+
 ## More Info
 
 For more info you can see my post on [Backdooring user data](https://blog.ryanjarv.sh/2020/11/27/backdooring-user-data.html)
