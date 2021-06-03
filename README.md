@@ -8,6 +8,11 @@ This exists as an example of how an attacker could semi-covertly backdoor EC2 in
 
 Currently there is a five minute delay between when the new instance comes up and when it is backdoored, this is to work around issues with bootstrapping at the moment. Hope to find another way to do this in the future, but we'll see.
 
+## Wish List
+* Play nicely with bootstrapping (User Data or the Terraform SSH provider) without adding a delay.
+* Target individual instances or tags
+* Configurable options for logging, commands run at boot, etc.
+
 ## More Info
 
 For more info you can see my post on [Backdooring user data](https://blog.ryanjarv.sh/2020/11/27/backdooring-user-data.html)
