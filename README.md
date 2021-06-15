@@ -15,10 +15,10 @@ Currently there is a five minute delay between when the new instance comes up an
 
 There is a fair amount of permissions required to deploy this, which is ok if you just want to test it out. To be useful it may make more sense to deploy in a seperate account then the one you're targeting, this way the initial set up only requires `events:PutRule` and `events:PutTargets` permissions. I'll likely add support for this in the future, for now you can try the following to do this manually.
 
+__WARNING__: This will allow any AWS account to run any action against the bus set up in the UserDataSwap account, probably best to set this part up in a account that isn't used for anything else. The permissive resource policy is one of the ways to get override the lack of permissions assigned to the the put-event rule to avoid needing iam:PassRole and an appropriate role already configured in the victim account. It may be possible to reduce these permissions, need to do more testing here though.
+
 * In the UsereDataSwap account:
   * In the UserDataSwap lambda account create a new event bus named `run-instance-trigger` and give it the following resource policy.
-  WARNING: This will allow any AWS account to run any action against this event bus.
-  TODO: Figure out the exact permissions needed for this.
     ```
     {
       "Version": "2012-10-17",
