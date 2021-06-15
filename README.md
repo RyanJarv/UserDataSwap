@@ -13,7 +13,7 @@ Currently there is a five minute delay between when the new instance comes up an
 
 ## Cross-Account Access
 
-There is a fair amount of permissions required to deploy this, which is ok if you just want to test it out. To be useful it may make more sense to deploy in a seperate account then the one you're targeting, this way the initial set up only requires `events:PutRule` and `events:PutTargets` permissions. I'll likely add support for this in the future, for now you can try the following to do this manually.
+There is a fair amount of permissions required to deploy this, which is ok if you just want to test it out. To be useful it may make more sense to deploy in a seperate account then the one you're targeting, this way the initial set up only requires `events:PutRule` and `events:PutTargets` permissions in the victim account. I'll likely add support for this in the future, for now you can try the following to do this manually.
 
 __WARNING__: This will allow any AWS account to run any action against the bus set up in the UserDataSwap account, probably best to set this part up in a account that isn't used for anything else. The permissive resource policy is one of the ways to get override the lack of permissions assigned to the the put-event rule to avoid needing iam:PassRole and an appropriate role already configured in the victim account. It may be possible to reduce these permissions, need to do more testing here though.
 
