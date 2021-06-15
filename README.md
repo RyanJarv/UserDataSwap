@@ -1,6 +1,4 @@
-# user_data_swap
-
-WARNING: do not deploy this to any account you (or anyone else) actively uses
+# UserDataSwap
 
 User data swap is an example of an automated lambda function that runs that swaps out user data on RunInstance events. The original user data script is restored after ours is run.
 
